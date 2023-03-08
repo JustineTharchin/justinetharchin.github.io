@@ -1,4 +1,5 @@
-const kdanseApi = require('./kdanse-api.js');
+//const kdanseApi = require('./kdanse-api.js');
+import kdanseApi from './kdanse-api.js';
 
 const playlist_url = '/jcddms_playlist.json';
 const eventloop_url = 'http://http.api.player.jcd.local/v1/eventloop';
