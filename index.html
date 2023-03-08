@@ -1,0 +1,41 @@
+<html>
+  <body class="main">
+    <div id="content">
+      <h1 id="infos" style="color: blue">INIT</h1>
+    </div>
+    <script>
+      var infos = document.getElementById("infos");
+      var content = document.getElementById("content");
+      infos.innerHTML = "Page loaded";
+      window.addEventListener("jcddms_fillerReady", function () {
+        var m = document.jcddms_suitableFillerContent;
+        if (m.path == '') {
+          infos.innerHTML = "NO SUITABLE CONTENT";
+          infos.style = "color: red";
+        } else {
+          var ext = m.path.split('.').pop().toLowerCase();
+          if (ext == "png") {
+            var img = document.createElement("img");
+            img.src = m.path;
+            content.appendChild(img);
+            infos.innerHTML = "IMG: " + m.jcddms_fillercreativeid + " - " + m.jcddms_fillerreservationid;
+            infos.style = "color: green";
+          } else if (ext == "mp4") {
+            var vid = document.createElement("video");
+            vid.src = m.path;
+            vid.id = "videoId";
+            content.appendChild(vid);
+            window.addEventListener("jcddms_playbackStart", function() {
+              vid.play();
+            });
+            infos.innerHTML = "VIDEO: " + m.jcddms_fillercreativeid + " - " + m.jcddms_fillerreservationid;
+            infos.style = "color: green";
+          } else {
+            infos.innerHTML = "UNSUPPORTED CONTENT: " + m.jcddms_fillercreativeid + " - " + m.jcddms_fillerreservationid;
+          }
+        }
+      });
+    </script>
+    <script type="module" src="./filler.js" async></script>
+  </body>
+</html>
